@@ -5,6 +5,7 @@ from uuid import uuid4
 from textwrap import dedent
 
 from flask import Flask
+from flask import jsonify
 
 
 class Blockchain(object):
@@ -50,7 +51,8 @@ class Blockchain(object):
     
     @staticmethod
     def valid_proof(last_proof, proof):
-        guess = f'{last_proof}{proof}'.encode()
+        guess1 = last_proof + proof
+        guess = guess1.encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
         return guess_hash[:4] == "0000"
 
